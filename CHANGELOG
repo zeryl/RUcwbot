@@ -1,0 +1,253 @@
+0.15.0:
+* Fix bug where items would not be sent by kmail if it would leave 0 in inventory
+
+
+0.14.4:
+* Fix login issue
+* DreadOverviewModule now shows percentages to one decimal place
+* Fixed long hang when connection interrupted: set timeout for HTTP requests
+* Remove non-functional faxbots from queue
+* HeartbeatSubsystem sets stop event on error
+* Slight fixes to documentation
+* Added systemd script
+
+0.14.3:
+* Restart database after nightly maintenance to allow backups
+* Added loglevel option to login.ini
+
+0.14.2:
+* Updated pykol to work with new HTTPS login
+* MessageManager shows if a command is for admins
+* Fixed message to other bots in WalkieTalkieRepeater
+
+0.14.1:
+* Fixed crash in CashoutModule
+* Updated example configs
+* Removed some accidentally-left-in print statements
+* Added auto-backup of database
+
+0.14.0:
+* Fix more Holiday Fun messiness
+* Updated mail db format to include timestamp
+* Fixed some funniness with the ItemDatabase
+* Items can now be better looked up with the DescId
+* cwbot.py is now properly executable in Linux
+* Reduced ClanRankModule assumed run time to 3600
+* Fixed Patterns.py to include effects of Toggle Optimality
+* Database auto-backs up daily (10 backups)
+* Removed some accidental debug print statements
+
+0.13.1:
+* New Faxbot module... FaxModule2. Supports multiple faxbots. Old FaxModule is deprecated.
+* New PeriodicAnnouncementModule that makes... periodic announcements
+* DreadTimelineModule omits full state during request
+* Disabled more logging from urllib3
+* HotdogModule removed because it is obsolete
+* Improved mailHandler. There is now a 2 second delay between kmails if to the same player, to allow for proper ordering.
+* Kmails are split along newlines if possible.
+* Fixed a rare WalkieTalkieRepeater crash.
+* GetMessagesRequest now parses links instead of returning the HTML code.
+* BotSystem now logs exceptions correctly
+* Redid BaseModule to allow exceptions in initialize() without clearing state. If an exception is thrown, the initializationFailed() method is called, which resets state by default but can be overridden.
+* Added Holiday Fun! to list of items not to send
+* respondToKmail() deletes items in _doNotSendItems
+
+0.13.0:
+* Updated Dreadsylvania database
+* Fixed crashing caused by bad JSON
+* Fixed an exploit in DiceModule that allocated tons of memory with the permute command.
+* Updated pykol
+* Turned off debug messages from requests library, even in debug mode.
+* Fixed "buffs" command not working for BuffbotModule.
+* Hotdog module supports "hot dog" and "hotdog"
+
+0.12.4:
+* Fixed unicode bugs
+
+0.12.3:
+* Added the WalkieTalkieRepeater, which is a special manager that relays chat between /clan and /talkie on a random channel. It does not support chat modules, however.
+* Added the WarbearBlackboxModule, which can convert whosits to black box stuff!
+* ItemDatabase does not reload from file if database is unchanged
+* AnnouncementModule now has a %clan% variable
+* ChatManager now removes entity encoding from chats due to chat effects
+* CommunicationDirector checks clan membership before loading modules
+* stringToList now supports empty strings and "none"
+* Added "talkie" channel to ChatUtils
+* upstart script has 60 second timeout now
+* SmoreModule now does time's arrow too
+* Fixed a bug in InventoryManager causing the id field to be used instead of the iid field in the SQLite db
+* Fixed bug where bot would crash if a message in the outbox had an unknown item attached
+* Added SpecialShopRequest, which handles special stores that use their own currencies.
+* GetMessagesRequest (and MailboxManager) support an option to allow unknown items.
+* updated readme
+
+0.12.2:
+* Fixed a bug where clan whitelist members were not detected, due to a recent change in KoL's code.
+
+0.12.1:
+* Fixed a bug where the AhbgModule didn't detect dancing/watching
+* DreadChoicesModule and DreadKillsModule show more accurate messages about when a player has not adventured in dreadsylvania
+* Prevented repeated startup as a service by waiting 60 minutes before shutdown if a FatalError is raised
+* Fixed a bug in DreadOverviewModule when requesting dread data through _raiseEvent in list format.
+* Added DreadTimelineModule, which uses the PasteBin API. Also added the python_pastebin package to requirements.txt.
+* FaxModule catches socket.error now
+* Dreadsylvanian machine use is now detected in the clan raid logs.
+* Slightly modified how new clan member detection works.
+* Clan members are not removed from the internal list of clannies until the bot shuts down for rollover.
+* Stop debug traceback when new instance starts
+* Fixed a bug that caused ClanRankModule to crash when trying to read members with higher ranks than the bot.
+* renamed /doc to /documentation
+* updated readme
+* code cleanup
+
+0.12.0:
+* DreadUniquesModule shows FKs now.
+* Dreadsylvania database updated.
+* DreadChoicesModule now shows stuff you did as well as stuff you can still do.
+* DreadOverviewModule now announces when zones have reached a certain percent completion.
+* DreadUniquesModule now uses a more compact representation.
+* Fixed DreadUniquesModule which didn't show a message if uniques were all gone.
+* Fixed (I think) a deadlock when an exception occurs inside a heartbeat inside BaseClanDungeonChannelManager
+* added "say" command to MaintenanceModule
+* Fixed a bug where the bot would crash after FaxBot denied its fax request
+* Fixed a deadlock in the Dread/Hobo Channel Managers
+* bot no longer errors out in debug mode when retrying after rollover
+* DEVELOPERS: changed the name of the _processorInitData method to _moduleInitData
+* Changes to DreadOverviewModule to use Likelihood Ratio Test to check for which monsters are more populous
+* Fixed a crash in DreadOverviewModule when taking the absolute value of a list by accident
+* Fixed a bug in DreadOverviewModule where monsters with irregular plurals were not properly parsed
+* DreadOverviewModule now responds to state inquiry
+* FaxModule uses int instead of round
+* Fixed a text comparison bug in the AhbgModule
+* Fixed a bug where dungeon state would be messed up if the bot crashed during a reset
+* TownScarehoboModule disables itself after Hobopolis instance is finished
+* Fixed some errors in the dread.csv database
+* New module ClanRankModule tends to clan ranks/booting
+* 5 log backups, log max size 10 MB
+* 6 heartbeat threads instead of 5 now
+* BaseManager omits really long state data from log
+* Set default socket timeout to 60 seconds
+* new DreadKillsModule tells you how many enemies you've killed
+* DreadChoicesModule proper name code is fixed
+* Fixed a bug where the AhbgModule didn't detect dancing/watching
+* Replaced modules_example.ini with a bunch of example configs in the doc/example_config folder.
+* updated admin_example.ini to remove faxbot
+* update login_example.ini to remove clan Id number
+* updated readme to add various stuff
+
+0.11.1:
+* DreadOverviewModule now shows which monster has been killed more.
+* DreadUniquesModule now chats when uniques are picked up.
+* DreadUniquesModule now shows the number of items remaining when announcements are made.
+* DreadOverviewModule now shows kiss-level of an area if it is greater than one.
+* added new DreadChoicesModule which shows what choice adventures are available
+
+
+0.11.0:
+* Dreadsylvania! The new DreadChannelManager handles Dreadsylvania stuff, along with its new modules, listed below.
+* Added the DreadOverviewModule, which implements the "!dread"/"!status" command and shows the percent completion of the Dreadsylvania areas.
+* Added the DreadKeyModule, which shows which choice adventures are unlocked.
+* Added the DreadUniquesModule, which shows which uniques are still available. However, it is not fully implemented for the Auditor's badge.
+* Developers: The _processLog and _processDungeon are now passed the raw raidlog instead of raidlog['events']. See developers.txt.
+* Internal changes to support Dreadsylvania.
+* MessageManager now has "show_chat_help_message" option. If set to false, a help kmail will not show CHAT HELP: blah blah blah at the bottom.
+* Upgraded the DiceModule to show help with a raw command.
+
+
+0.10.0:
+* Fixed a serious bug where the bot would crashloop when receiving unrecognized unicode strings in a kmail
+* cwbot now requires the unidecode package from PyPi
+* MailHandler now tries 6 times before deciding it's not online
+* Added the HotdogModule, which lets people send hotdog components in advance (requires VIP key)
+
+0.9.3:
+* Fixed a bug where the bot would crash when receiving system (green) messages
+
+0.9.2:
+* FaxModule no longer uses large amounts of bandwidth in announce mode
+
+0.9.1:
+* Improved response time when checking in-clan status of a user
+* Because of the above, non-matching commands are again sent to modules with clan-only status
+* FaxModule now has new options to save on bandwidth usage
+* Setting a permission of "none" instead of "None" now works correctly
+* Updated documentation
+
+0.9.0:
+* BuffbotModule fully functional
+* fixed a bug that caused OutfitEquipRequest to fail
+* updated documentation
+* Removed ChatHelpMessage.py
+
+0.8.2:
+* Fixed a bug where the bot would only wait 60 seconds at rollover.
+* HoboChatMonitorModule only dispatches when not in debug mode now.
+* ItemDatabase tries to reset itself before crashing
+
+0.8.1:
+* Fixed a bug where the bot would crash when trying to sign back on.
+* Ctrl+C no longer calls sys.exit() directly. Instead, it sets an event that is polled by the BotSystem.
+* AnnouncementModule, BreakfastModule, ShutdownModule moved to new folder cwbot/modules/core, which holds modules that are not for direct interaction
+* Added new core module HealingModule that other modules can call to heal HP or MP
+* Buying items from mall is now supported
+* Added BuffbotModule that allows setup of buffbot
+
+0.8.0:
+* VERY experimental handling of gift packages if bot is in Ronin/HC.
+* AboutModule now shows when updates are available! Make sure to give yourself
+    the update_notify permission.
+* Fixed a bug that would cause a crash if the bot had no display case.
+* Added some more logging.
+
+0.7.3:
+* Fixed a bug where the MessageManager would crash if it received a Kmail by 
+    accessing mod.identity instead of mod.id.
+* Changed MaintenanceModule to add bot_status command.
+    
+0.7.2:
+* Fixed a bug where the bot would get stuck in a boot loop if it received a kmail from itself.
+
+0.7.1:
+* cwbot now uses argparser to parse command line arguments:
+* debug mode now invoked with 'python cwbot.py --debug'
+* allows alternate login id via --login argument
+
+0.7.0:
+* Forgot to svn add the SmoreModule and ChatHelpModule
+* Added Windows service capabilities. The new w32service.py file is used for the Windows service.
+* Moved cwbot.py logic to cwbot.main.py instead. This way main() is importable from other files 
+    (cwbot.py can't be imported since it shares a name with the cwbot module). 
+    main() now accepts a multiprocessing.Connection object that can be used to pipe information
+    from the Windows service.
+* MessageManager now syncs state after every kmail processed.
+
+0.6.0:
+* BaseChatManager and its children now stop after a module processes a chat. 
+    This mimics the behavior of the MessageManager. 
+    Note that _processDungeon in the HoboChannelManager still works the old way, 
+    i.e., sends every module the Dungeon chats.
+* Implimented help for kmails via the MessageManager and the BaseKmailModule's new _kmailDescription method:
+* added new ChatHelpMessage module that shows information about chat help under the MessageManager
+* Fixed a bug that would crash the bot if modules under a MessageManager had permission settings.
+* Added new SmoreModule that handles s'mores. Yum!
+* KmailResponse accepts null module argument.
+* Chat-based managers show if commands may be issued in PM when using !help.
+* BaseManager throws a FatalError if module import fails. The failure messages are more readable as well.
+* Updated documentation and modules_example.ini to reflect new functions
+* Don't annoy admins with crashes in debug mode
+* /data and /log folders are created automatically
+* removed /data and /log folders from version control
+
+0.5.1:
+* Bot shows better messages when modules.ini is invalid
+* Added FatalError that causes bot to shut down instead of repeatedly log in
+
+0.5.0:
+* cwbot doesn't crash with invalid password
+* chat is properly closed
+* renamed .ini files included in .zip
+* Added new AboutModule that shows version message.
+* changed argument names in BaseChatModule._processCommand
+
+0.4.0:
+* Initial public release.

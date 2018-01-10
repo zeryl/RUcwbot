@@ -1,0 +1,8 @@
+Pygments
+pytz
+fuzzywuzzy==0.1
+unidecode
+pastebin_python
+requests
+xmltodict
+pymysql
